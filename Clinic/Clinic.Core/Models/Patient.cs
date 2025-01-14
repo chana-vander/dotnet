@@ -14,13 +14,6 @@ namespace Clinic.Core.Models
         public bool above18 { get; set; }
         public string status { get; set; }
 
-      /*  public Patient(int id_tz, string name, string phone, bool above18, string status)
-        {
-            this.id_tz = id_tz;
-            this.name = name;
-            this.phone = phone;
-            this.above18 = above18;
-            this.status = status;
-        }*/
+        public List<Prescription> prescriptionsList { get; set; }
     }
 }

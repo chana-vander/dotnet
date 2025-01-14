@@ -21,16 +21,13 @@ builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
 //patient:
 builder.Services.AddScoped<IPatientService,PatientService>();
 builder.Services.AddScoped<IPatientRepository,PatientRepository>();
-//builder.Services.AddSingleton<DataContext2>();
 //prescription
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
-//builder.Services.AddSingleton<DataContext3>();
+
 
 //db:
 builder.Services.AddDbContext<DataContext>();
-/*builder.Services.AddDbContext<DataContext2>();
-builder.Services.AddDbContext<DataContext3>();*/
 
 
 var app = builder.Build();

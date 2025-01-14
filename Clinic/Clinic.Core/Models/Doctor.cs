@@ -12,9 +12,7 @@ namespace Clinic.Core.Models
         public string Doctor_name { get; set; }
         public string occupation { get; set; }
         public string phone { get; set; }
-        //public int PatientId { get; set; }
-        //public Patient patient { get; set; }
-        //public Patient Patient { get; set; }
-        public Patient Patient { get; set; }
+
+        public List<Prescription> prescriptions { get; set; }
     }
 }
