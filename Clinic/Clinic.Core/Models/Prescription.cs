@@ -11,6 +11,7 @@ namespace Clinic.Core.Models
         public int Id { get; set; }
         public bool Date_passed { get; set; }
         public string Desecription { get; set; }
+        //רבים ליחיד
         public int DoctorId { get; set; }
         public Doctor doctor { get; set; }
         public int PatientId { get; set; }

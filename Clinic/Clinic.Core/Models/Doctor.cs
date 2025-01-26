@@ -12,7 +12,8 @@ namespace Clinic.Core.Models
         public string Doctor_name { get; set; }
         public string occupation { get; set; }
         public string phone { get; set; }
-
+        //יחיד לרבים
         public List<Prescription> prescriptions { get; set; }
+
     }
 }

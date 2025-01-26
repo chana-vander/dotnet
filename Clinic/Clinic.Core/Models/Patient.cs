@@ -13,7 +13,7 @@ namespace Clinic.Core.Models
         public string phone { get; set; }
         public bool above18 { get; set; }
         public string status { get; set; }
-
+        //יחיד לרבים
         public List<Prescription> prescriptionsList { get; set; }
     }
 }
