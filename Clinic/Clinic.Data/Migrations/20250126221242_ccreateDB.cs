@@ -5,7 +5,7 @@
 namespace Clinic.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class onetomany : Migration
+    public partial class ccreateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,35 +49,48 @@ namespace Clinic.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date_passed = table.Column<bool>(type: "bit", nullable: false),
                     Desecription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Doctorid = table.Column<int>(type: "int", nullable: true)
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_prescriptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_prescriptions_doctors_Doctorid",
-                        column: x => x.Doctorid,
+                        name: "FK_prescriptions_doctors_DoctorId",
+                        column: x => x.DoctorId,
                         principalTable: "doctors",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_prescriptions_patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "patients",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_prescriptions_Doctorid",
+                name: "IX_prescriptions_DoctorId",
                 table: "prescriptions",
-                column: "Doctorid");
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_prescriptions_PatientId",
+                table: "prescriptions",
+                column: "PatientId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "patients");
-
-            migrationBuilder.DropTable(
                 name: "prescriptions");
 
             migrationBuilder.DropTable(
                 name: "doctors");
+
+            migrationBuilder.DropTable(
+                name: "patients");
         }
     }
 }

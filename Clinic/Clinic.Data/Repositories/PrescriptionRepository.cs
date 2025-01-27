@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Clinic.Core.Models;
 using Clinic.Data.Repository;
 using Clinic.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Data.Repositories
 {
@@ -20,7 +21,7 @@ namespace Clinic.Data.Repositories
         }
         public List<Prescription> GetAll()
         {
-            return _context.prescriptions.ToList();
+            return _context.prescriptions.Include(d=>d.doctor).Include(p=>p.patient).ToList();
         }
         public Prescription? GetById(int id)
         {

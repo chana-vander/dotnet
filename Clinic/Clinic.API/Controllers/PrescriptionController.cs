@@ -1,4 +1,7 @@
-﻿using Clinic.Core.Models;
+﻿using AutoMapper;
+using Clinic.API.Models;
+using Clinic.Core.Dto;
+using Clinic.Core.Models;
 using Clinic.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,30 +14,36 @@ namespace Clinic.API.Controllers
     public class PrescriptionController : ControllerBase
     {
         private readonly IPrescriptionService _prescriptionsService;
-        public PrescriptionController(IPrescriptionService p)
+        private readonly IMapper _mapper;
+        public PrescriptionController(IPrescriptionService p,IMapper mapper)
         {
             _prescriptionsService = p;
+            _mapper = mapper;
         }
         // GET: api/<PrescriptionController>
         [HttpGet]
-        public List<Prescription> Get()
+        public ActionResult<PrescriptionDto> Get()
         {
-            return _prescriptionsService.GetList();
+            var list= _prescriptionsService.GetList();
+            var listDto=_mapper.Map<IEnumerable<PrescriptionDto>>(list);
+            return Ok(listDto);
         }
 
         // GET api/<PrescriptionController>/5
         [HttpGet("{id}")]
-        public ActionResult GetById(int id)
+        public ActionResult<PrescriptionDto> GetById(int id)
         {
-            Prescription prescription = _prescriptionsService.GetList().FirstOrDefault(p => p.Id == id);
-            return prescription != null ? Ok(prescription) : NotFound("id doesn't exists!!!");
+            Prescription prescription = _prescriptionsService.GetById(id);
+            var prescriptionDto=_mapper.Map<PrescriptionDto>(prescription);
+            return prescription != null ? Ok(prescriptionDto) : NotFound("id doesn't exists!!!");
         }
 
         // POST api/<PrescriptionController>
         [HttpPost]
-        public ActionResult Post([FromBody] Prescription value)
+        public ActionResult Post([FromBody] PrescriptionPostModel pres)
         {
-            Prescription p = _prescriptionsService.Add(value);
+            var pToPost=new Prescription() {Date_passed=pres.Date_passed,Desecription=pres.Desecription };
+            Prescription p = _prescriptionsService.Add(pToPost);
             return Ok(p);
         }
 

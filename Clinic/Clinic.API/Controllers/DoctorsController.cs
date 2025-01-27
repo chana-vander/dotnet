@@ -1,7 +1,11 @@
-﻿using Clinic.Core.Models;
+﻿using AutoMapper;
+using Clinic.API.Models;
+using Clinic.Core.Dto;
+using Clinic.Core.Models;
 using Clinic.Core.Services;
 using Clinic.Service;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Numerics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,38 +18,38 @@ namespace Clinic.API.Controllers
     {
         //this line:
         private readonly IDoctorsService _doctorsService;
-        public DoctorsController(IDoctorsService doctorsSe)
+        private readonly IMapper _mapper;
+
+        public DoctorsController(IDoctorsService doctorsSe,IMapper mapper)
         {
             _doctorsService = doctorsSe;
+            _mapper = mapper;
         }
         // GET: api/<DoctorsController>
         [HttpGet]
         public ActionResult Get()
         {
-            var doctors = _doctorsService.GetList();
-            return Ok(doctors);
+            var list = _doctorsService.GetList();
+            var listDto=_mapper.Map<IEnumerable<DoctorDto>>(list);
+            return Ok(listDto);
         }
 
         // GET api/<DoctorsController>/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            //Doctor doctor = _doctorsService.GetAll().FirstOrDefault(d => d.id == id);
             Doctor doctor = _doctorsService.GetById(id);
-            if (doctor is not null)
-            {
-                return Ok(doctor);
-
-            }
-            return NotFound();
+            var doctorDto = _mapper.Map<DoctorDto>(doctor);
+            return Ok(doctorDto);
         }
 
         // POST api/<DoctorsController>
         [HttpPost]
         //add
-        public ActionResult Post(Doctor d)
+        public ActionResult Post(DoctorPostModel d)
         {
-            Doctor doctor = _doctorsService.Add(d);
+            var dToPost = new Doctor { Doctor_name = d.Doctor_name, occupation = d.occupation, phone = d.phone };
+            Doctor doctor = _doctorsService.Add(dToPost);
             return Ok(doctor);
             //_doctorsService.SaveChanges();
         }
@@ -53,13 +57,14 @@ namespace Clinic.API.Controllers
         // PUT api/<DoctorsController>/5
         //עדכון -update 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Doctor doctor)
+        public ActionResult Put(int id, [FromBody] DoctorPostModel doctor)
         {
-            Doctor updatedDoctor = _doctorsService.Update(doctor);
-            if (updatedDoctor is null)
+            var dToPost = new Doctor { Doctor_name = doctor.Doctor_name, occupation = doctor.occupation, phone = doctor.phone };
+            Doctor updatedDoctor = _doctorsService.Update(dToPost);
+            /*if (updatedDoctor is null)
             {
                 return NotFound("id not found");
-            }
+            }*/
             return Ok(updatedDoctor);
         }
 

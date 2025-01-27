@@ -1,6 +1,8 @@
 ﻿using Clinic.Core;
 using Clinic.Core.Models;
 using Clinic.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 //using Clinic.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,7 @@ namespace Clinic.Data.Repository
         }
         public List<Doctor> GetAll()
         {
-            return _context.doctors.ToList();
+            return _context.doctors.Include (d=>d.prescriptions).ToList();
         }
         public Doctor? GetById(int id)
         {
@@ -34,10 +36,10 @@ namespace Clinic.Data.Repository
         public Doctor Update(Doctor doctor)
         {
             Doctor existDoctor = GetById(doctor.id);
-            /*if (existDoctor is null)
+            if (existDoctor is null)
             {
-                return NotFound("doctor not found");
-            }*/
+                throw new Exception("id not found");
+            }
             existDoctor.Doctor_name = doctor.Doctor_name;
             existDoctor.phone = doctor.phone;
             existDoctor.occupation = doctor.occupation;

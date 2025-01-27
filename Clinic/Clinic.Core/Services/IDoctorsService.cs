@@ -9,8 +9,6 @@ namespace Clinic.Core.Services
 {
     public interface IDoctorsService
     {
-        //מוצשק יד כסליו
-        /*List<Doctor> GetAll();*/
         List<Doctor> GetList();
         Doctor? GetById(int id);
         Doctor Add(Doctor doctor);

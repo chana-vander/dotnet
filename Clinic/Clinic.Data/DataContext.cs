@@ -22,24 +22,6 @@ namespace Clinic.Data
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=my_db ;Trusted_Connection=True ");
             optionsBuilder.LogTo(message=>Debug.WriteLine(message));
         }
-       /* protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // הגדרת המפתח הראשי בטבלה המקשרת
-            modelBuilder.Entity<DoctorPatient>()
-                .HasKey(dp => new { dp.DoctorId, dp.PatientId });
-
-            // קשרים בין Doctor ל-DoctorPatient
-            modelBuilder.Entity<DoctorPatient>()
-                .HasOne(dp => dp.Doctor)
-                .WithMany(d => d.DoctorPatients)
-                .HasForeignKey(dp => dp.DoctorId);
-
-            // קשרים בין Patient ל-DoctorPatient
-            modelBuilder.Entity<DoctorPatient>()
-                .HasOne(dp => dp.Patient)
-                .WithMany(p => p.DoctorPatients)
-                .HasForeignKey(dp => dp.PatientId);
-        }*/
     }
 }
 

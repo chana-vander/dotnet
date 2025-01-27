@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Data.Repositories
 {
@@ -19,7 +20,7 @@ namespace Clinic.Data.Repositories
         }
         public List<Patient> GetAll()
         {
-            return _context.patients.ToList();
+            return _context.patients.Include(p=>p.prescriptionsList).ToList();
         }
         public Patient? GetById(int id)
         {
