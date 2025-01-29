@@ -28,10 +28,10 @@ namespace Clinic.Data.Repositories
             return _context.prescriptions.FirstOrDefault(p => p.Id == id);
         }
 
-        public Prescription Add(Prescription p)
+        public async Task<Prescription> AddAsync(Prescription p)
         {
             _context.prescriptions.Add(p);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return p;
         }
         public Prescription Update(Prescription p)

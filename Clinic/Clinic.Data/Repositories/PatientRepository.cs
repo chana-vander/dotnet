@@ -26,10 +26,10 @@ namespace Clinic.Data.Repositories
         {
             return _context.patients.SingleOrDefault(p => p.id == id);
         }
-        public Patient Add(Patient patient)
+        public async Task<Patient> AddAsync(Patient patient)
         {
             _context.patients.Add(patient);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return patient;
         }

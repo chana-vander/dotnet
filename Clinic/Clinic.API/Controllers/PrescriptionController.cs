@@ -40,10 +40,10 @@ namespace Clinic.API.Controllers
 
         // POST api/<PrescriptionController>
         [HttpPost]
-        public ActionResult Post([FromBody] PrescriptionPostModel pres)
+        public async Task<ActionResult> Post([FromBody] PrescriptionPostModel pres)
         {
             var pToPost=new Prescription() {Date_passed=pres.Date_passed,Desecription=pres.Desecription };
-            Prescription p = _prescriptionsService.Add(pToPost);
+            Prescription p =await _prescriptionsService.AddAsync(pToPost);
             return Ok(p);
         }
 

@@ -46,10 +46,10 @@ namespace Clinic.API.Controllers
         // POST api/<DoctorsController>
         [HttpPost]
         //add
-        public ActionResult Post(DoctorPostModel d)
+        public async Task<ActionResult> Post(DoctorPostModel d)
         {
             var dToPost = new Doctor { Doctor_name = d.Doctor_name, occupation = d.occupation, phone = d.phone };
-            Doctor doctor = _doctorsService.Add(dToPost);
+            Doctor doctor = await _doctorsService.AddAsync(dToPost);
             return Ok(doctor);
             //_doctorsService.SaveChanges();
         }

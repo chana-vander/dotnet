@@ -1,3 +1,4 @@
+using Clinic.API.MiddleWares;
 using Clinic.Core;
 using Clinic.Core.Repositories;
 using Clinic.Core.Services;
@@ -53,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ShabbatMiddleware>();
 
 app.MapControllers();
 

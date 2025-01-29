@@ -25,9 +25,9 @@ namespace Clinic.Service
             return _prescriptinRepository.GetById(id);
         }
 
-        public Prescription Add(Prescription prescription)
+        public async Task<Prescription> AddAsync(Prescription prescription)
         {
-            return _prescriptinRepository.Add(prescription);
+            return await _prescriptinRepository.AddAsync(prescription);
         }
         public Prescription Update(Prescription prescription)
         {

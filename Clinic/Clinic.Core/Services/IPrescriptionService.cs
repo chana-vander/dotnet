@@ -11,7 +11,7 @@ namespace Clinic.Core.Services
     {
         List<Prescription> GetList();
         Prescription? GetById(int id);
-        Prescription Add(Prescription prescription);
+        Task<Prescription> AddAsync(Prescription prescription);
         Prescription Update(Prescription prescription);
         void Delete(int id);
     }

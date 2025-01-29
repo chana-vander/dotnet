@@ -25,9 +25,9 @@ namespace Clinic.Service
             return _doctorRepository.GetById(id);
         }
 
-        public Doctor Add(Doctor doctor)
+        public async Task<Doctor> AddAsync(Doctor doctor)
         {
-            return _doctorRepository.Add(doctor);
+            return await _doctorRepository.AddAsync(doctor);
         }
         public Doctor Update(Doctor doctor)
         {
